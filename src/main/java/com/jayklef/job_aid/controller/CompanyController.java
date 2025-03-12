@@ -24,6 +24,12 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
+    @PostMapping
+    public ResponseEntity<String> createCompany(@RequestBody Company company){
+        companyService.createCompany(company);
+        return new ResponseEntity<>("Company created successfully", HttpStatus.CREATED);
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<String> updateCompany(@PathVariable("id") Long id,
                                                 @RequestBody Company company){
