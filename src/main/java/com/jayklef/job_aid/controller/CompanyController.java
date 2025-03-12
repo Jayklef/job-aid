@@ -2,10 +2,10 @@ package com.jayklef.job_aid.controller;
 
 import com.jayklef.job_aid.model.Company;
 import com.jayklef.job_aid.service.CompanyService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +22,17 @@ public class CompanyController {
     @GetMapping
     public List<Company> companies(){
         return companyService.getAllCompanies();
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<String> updateCompany(@PathVariable("id") Long id,
+                                                @RequestBody Company company){
+        boolean updated = companyService.updateCompany(company, id);
+        if (updated){
+            return new ResponseEntity<>("Company updated successfully", HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
