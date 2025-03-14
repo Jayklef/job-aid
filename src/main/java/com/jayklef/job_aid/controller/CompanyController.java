@@ -24,13 +24,13 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<String> createCompany(@RequestBody Company company){
         companyService.createCompany(company);
         return new ResponseEntity<>("Company created successfully", HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateCompany(@PathVariable("id") Long id,
                                                 @RequestBody Company company){
         boolean updated = companyService.updateCompany(company, id);
