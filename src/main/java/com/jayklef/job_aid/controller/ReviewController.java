@@ -49,4 +49,15 @@ public class ReviewController {
         else
             return new ResponseEntity<>("Review not updated", HttpStatus.NOT_FOUND);
     }
+
+    @DeleteMapping("/reviews/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable("companyId") Long companyId,
+                                               @PathVariable("reviewId") Long reviewId){
+        boolean isReviewDeleted = reviewService.deleteReview(companyId, reviewId);
+        if (isReviewDeleted){
+            return new ResponseEntity<>("Review deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Review not deleted", HttpStatus.NOT_FOUND);
+        }
+    }
 }
